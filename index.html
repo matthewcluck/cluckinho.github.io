@@ -1,62 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
- <head>
-   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon.png" />
-   <title>Matthew Cluck          </title>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Matthew Cluck Resume</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 4;
+      margin: 7;
+      height: 85%;
+      width: 85%;
+    }
+  </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/css/main.css">
+
+  <script src="https://js.arcgis.com/4.13/"></script>
+  
+  <script>  
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Sketch"
+    ], function(Map, MapView, GraphicsLayer, FeatureLayer, Sketch) {
+
+      
+           
+      // Continental Shelf Oil and Gas Pipelines
+      var oilPipelines = new FeatureLayer({
+        url: "https://gis.boem.gov/arcgis/rest/services/BOEM_BSEE/MMC_Layers/MapServer/2/query?where=1%3D1&outFields=*&outSR=4326&f=json"
+      }); 
+      
+ // Texas Counties (Polygons)
+      var parksLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/KTcxiTD9dsQw4r7Z/arcgis/rest/services/Texas_County_Boundaries/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json"
+      });
+      
+      
+      // Creat a temporary layer for graphics
+      var graphicsLayer = new GraphicsLayer();
+      
+      var map = new Map({
+        basemap: "topo-vector",
+        layers: [graphicsLayer]
+      });
+      
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-95.80543,28.02700],
+        zoom: 6.95
+      });
+      
+      // Sketch widget
+      var sketch = new Sketch({
+        view: view,
+        layer: graphicsLayer
+      });
+
+      // Add widget to the view
+      view.ui.add(sketch, "top-right");  
+      
+            map.add(oilPipelines);
+                  map.add(parksLayer, 0);
+    });
+    
+    
+    
+  </script>
 </head>
- <body>
+<body>
 
-   <!-- Bootstrap core CSS -->
-       <link href="css/bootstrap.css" rel="stylesheet">
-       <link rel="stylesheet" href="css/font-awesome.min.css">
-
-       <!-- Link the main.css stylesheet -->
-       <link href="bootstrap.css" rel="stylesheet">
-
-   <div class="header" id="headerwrap">
-     <div class="container">
-       <div class="row centered">
-         <div class="col-lg-12">
-           <h1>Matthew Cluck</h1>
-           <h3><b>GIS Specialist/Geologist  |
-            <a href="mailto:matthewacluck@gmail.com">matthewacluck@gmail.com</a>
-          </b></h3>
-         </div><!--/.col-lg-12-->
-       </div><!--/.row-->
-     </div><!--/.container-->
-   </div><!--/.#headerwrap-->
-
-   <section id="about" name="about"></section>
-    <div class="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-2">
-            <h5>            <img src= "https://i.ibb.co/2NCdcvK/worky.png" alt="Work" height="300" width="250">
-          </div>
-          <div class="col-lg-6 col-lg-offset-1" >
-   <p>My name is Matthew Cluck and I recently graduated in December of 2018 with a Bachelor of Science in Geology and a GIS minor from Texas Tech University. I am currently at the University of Texas at San Antonio taking some graduate level GIS courses while I finish up my final year of football. I am also doing some freelance remote work for the GIS company Pushpin out of Minnesota. I will be out of school in December.
-My resume and portfolio are linked on the right. My portfolio contains a few of my GIS projects and maps I have done throughout my college career. I am most proud of my NFL GIS analysis in the portfolio, and a link to the ESRI web app can be found <a href="http://texastech.maps.arcgis.com/apps/Media/index.html?appid=f7c9cc2b6e2c49a6955f1112267d8967" target="_blank">here.</a> I created this website myself using HTML and CSS, which I am still learning. I am also beginning to explore and learn the JavaScript API from ESRI.
-Thank you!
- </p>
- </div>
-          <div class="col-lg-3">
-            <p><a href="https://drive.google.com/open?id=1u076iqtw0oPRPUzfl-0SYSkXU7HCLpgw"><i class="icon-file"></i>Resume</p>
-                        <p><a href="https://drive.google.com/open?id=1ziispjXa-fZOz9j8NizsbUzXIp-eBFST"><i class="icon-file"></i>Portfolio</a></p></h5>
-
-                </div>
-          		</div><!--/.row -->
-          	</div><!--/.container -->
-        </div><!--/.row-->
-
-      </div><!--/.container-->
-    </div><!--/ #intro-->
+  <h1>Matthew Cluck - GIS Specialist/Geologist</h1>
+  <h4><a href="mailto:matthewacluck@gmail.com">matthewacluck@gmail.com</a></h4>
+  
+  <img src= "https://i.ibb.co/2NCdcvK/worky.png" alt="Work" height="300" width="250">
+  
+  <p>My name is Matthew Cluck and I recently graduated in December of 2018 with a Bachelor of Science in Geology and a GIS minor from Texas Tech University. I just recently finished a semester at the University of Texas at San Antonio where I was playing football and doing some GIS graduate courses. I am also doing some freelance remote sensing work at home for the GIS company Pushpin out of Minnesota.
+Here is my <a href="https://drive.google.com/open?id=1ekUIIREC_i8E5hC_0z1PpHFP2OK0G7jx" target="_blank">resume</a> and <a href="https://drive.google.com/drive/folders/1ziispjXa-fZOz9j8NizsbUzXIp-eBFST" target="_blank">portfolio.</a> My portfolio contains a few of my GIS projects and maps I have done throughout my college career. I am most proud of my NFL GIS analysis in the portfolio, and a link to the ESRI web app can be found <a href="http://texastech.maps.arcgis.com/apps/Media/index.html?appid=f7c9cc2b6e2c49a6955f1112267d8967" target="_blank">here.</a> I created this website myself using HTML and CSS, which I am still learning. I am also learning some JavaScript to help me with web development and the API from ESRI, which I go into more detail below. This is my latest GIS project and most advanced.</p>
+    
+  <p>The below app I made using the JavaScript API. The grey lines show oil and gas pipelines I imported from the ESRI catalog of data. I also imported Texas County boundaries from the same data hub. I then added a 'draw graphics' widget on top. You can play around with this widget; the idea is you can draw out other pipelines with the line tool or mark points of interest with the other tools. I just wanted to make a simple app from this API. Please ask me about this app so I can explain how I did it even more. </p>
+<p>Thank you!</p>
+  
+  <div id="viewDiv"></div>
 </body>
-					</p>
-				</div>
-			</div><!--/.row -->
-		</div><!--/.container -->
-	</div><!--/ #footer -->
 </html>
